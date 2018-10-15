@@ -8,7 +8,7 @@ public class Matrix {
     {
         this.n = n;
         matrix = new int[n*n];
-        //for(int i = 0;i<n*n; ++i) matrix[i] = i;
+        for(int i = 0;i<n*n; ++i) matrix[i] = i;
     }
 
     public Matrix(int n, int[] matrix)
@@ -18,7 +18,7 @@ public class Matrix {
     }
 
     public int size() { return n*n; }
-    public  int dimension() { return n; }
+    public int dimension() { return n; }
 
     public Matrix minus()
     {
@@ -34,11 +34,11 @@ public class Matrix {
             result.matrix[i] = this.matrix[i] + A.matrix[i];
         return result;
     }
-    public void println()
+    public void print()
     {
         for (int i = 0; i<this.size(); ++i) {
             System.out.print(this.matrix[i]+" ");
-            if(i == this.dimension() -1) System.out.println();
+            if(i%this.dimension() == this.dimension() -1) System.out.println();
         }
         System.out.println();
     }
