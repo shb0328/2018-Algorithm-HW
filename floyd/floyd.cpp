@@ -71,7 +71,7 @@ public:
 };
 
 int main() {
-	cout<<"E means infinity"<<endl;
+	cout<<"E means infinity"<<endl<<endl;
 	//N = 5
 	// int W[N][N] = 	{	
 	// 					{0,1,INFINITY,1,5},
