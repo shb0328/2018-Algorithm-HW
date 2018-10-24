@@ -71,7 +71,7 @@ public:
 };
 
 int main() {
-	int W[N][N] = 	{	
+	int W1[N][N] = 	{	
 						{0,1,INFINITY,1,5},
 						{9,0,3,2,INFINITY},
 						{INFINITY,INFINITY,0,4,INFINITY},
@@ -79,14 +79,14 @@ int main() {
 						{3,INFINITY,INFINITY,INFINITY,0}
 					};
 
-	Graph sampleGraph1 = Graph(W);
-	sampleGraph1.floyd();
+	Graph myGraph = Graph(W1);
+	myGraph.floyd();
 
 	int vStart = 1; //1~N
 	int vEnd = 3; //1~N
 
 	cout<<endl<<"v"<<vStart<<" ";
-	sampleGraph1.path(vStart,vEnd);
+	myGraph.path(vStart,vEnd);
 	cout<<"v"<<vEnd<<endl;
 
 	return 0;
