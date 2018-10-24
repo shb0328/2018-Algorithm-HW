@@ -4,8 +4,8 @@
 using std::endl;
 using std::cout;
 
-#define INFINITY 100 //Maximum value for an object of type int
-#define N 5 //Number of nodes 
+#define INFINITY INT_MAX/2 //
+#define N 6 //Number of nodes 
 
 class Graph {
 private:
@@ -27,8 +27,8 @@ public:
 		cout<<"W = "<<endl;
 		for(int i =0;i<N;++i){
 			for(int j =0;j<N;++j){
-				if(W[i][j] == 100)
-					cout<<"INFINITY ";
+				if(W[i][j] == INFINITY)
+					cout<<"E ";
 				else
 					cout<<W[i][j]<<" ";
 			}
@@ -71,15 +71,27 @@ public:
 };
 
 int main() {
-	int W1[N][N] = 	{	
-						{0,1,INFINITY,1,5},
-						{9,0,3,2,INFINITY},
-						{INFINITY,INFINITY,0,4,INFINITY},
-						{INFINITY,INFINITY,2,0,3},
-						{3,INFINITY,INFINITY,INFINITY,0}
+	cout<<"E means infinity"<<endl;
+	//N = 5
+	// int W[N][N] = 	{	
+	// 					{0,1,INFINITY,1,5},
+	// 					{9,0,3,2,INFINITY},
+	// 					{INFINITY,INFINITY,0,4,INFINITY},
+	// 					{INFINITY,INFINITY,2,0,3},
+	// 					{3,INFINITY,INFINITY,INFINITY,0}
+	// 				};
+
+	//N = 6
+	int W[N][N] = 	{	
+						{0,1,INFINITY,INFINITY,2,INFINITY},
+						{INFINITY,0,14,9,3,INFINITY},
+						{INFINITY,INFINITY,0,2,INFINITY,INFINITY},
+						{8,INFINITY,11,0,INFINITY,INFINITY},
+						{3,INFINITY,INFINITY,INFINITY,0,1},
+						{5,INFINITY,6,INFINITY,1,0}
 					};
 
-	Graph myGraph = Graph(W1);
+	Graph myGraph = Graph(W);
 	myGraph.floyd();
 
 	int vStart = 1; //1~N
