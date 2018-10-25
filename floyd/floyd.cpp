@@ -4,7 +4,7 @@
 using std::endl;
 using std::cout;
 
-#define INFINITY INT_MAX/2 //
+#define INFINITY INT_MAX/2 
 #define N 6 //Number of nodes 
 
 class Graph {
@@ -36,6 +36,34 @@ public:
 		}
 	}
 
+void showD()
+	{
+		cout<<"D = "<<endl;
+		for(int i =0;i<N;++i){
+			for(int j =0;j<N;++j){
+				if(D[i][j] == INFINITY)
+					cout<<"E ";
+				else
+					cout<<D[i][j]<<" ";
+			}
+				cout<<endl;
+		}
+	}
+
+	void showP()
+	{
+		cout<<"P = "<<endl;
+		for(int i =0;i<N;++i){
+			for(int j =0;j<N;++j){
+				if(P[i][j] == INFINITY)
+					cout<<"E ";
+				else
+					cout<<P[i][j]<<" ";
+			}
+				cout<<endl;
+		}
+	}
+
 	void floyd()
 	{
 		int i,j,k;
@@ -47,16 +75,13 @@ public:
 		
 		D = W;
 
-		for(k=0; k<N; ++k){
+		for(k=1; k<=N; ++k){
 			for(i=0; i<N; ++i){
 				for(j=0; j<N; ++j){
-					if(D[i][k] + D[k][j] < D[i][j]){
-						P[i][j] = k+1;
-						D[i][j] = D[i][k] + D[k][j];
-					}
-				}
-			}
-		}
+					if(D[i][k-1] + D[k-1][j] < D[i][j]){
+						P[i][j] = k;
+						D[i][j] = D[i][k-1] + D[k-1][j];
+					} } } } 
 	}
 
 	void path(int q, int r) {
@@ -93,6 +118,8 @@ int main() {
 
 	Graph myGraph = Graph(W);
 	myGraph.floyd();
+	myGraph.showD();
+	myGraph.showP();
 
 	int vStart = 1; //1~N
 	int vEnd = 3; //1~N
