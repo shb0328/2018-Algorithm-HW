@@ -6,7 +6,7 @@ using std::cout;
 #define N 6
 
 int minmult(int n, const int d[N], int P[N][N]) ; 
-void order(int i,int j,const int P[N][N]) ;
+void order(const int i,const int j,const int P[N][N]) ;
 
 int main() {
 
@@ -76,7 +76,7 @@ int minmult(const int n, const int d[N], int P[N][N])
 	return M[0][n-1];
 }
 
-void order(int i,int j,const int P[N][N]) 
+void order(const int i,const int j,const int P[N][N]) 
 {
 	if(i == j) cout<<"A"<<i<<"";
 	else {
