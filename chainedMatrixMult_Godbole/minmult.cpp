@@ -3,14 +3,16 @@
 using std::endl;
 using std::cout;
 
-#define N 6
+// #define N 6
+#define N 4
 
 int minmult(int n, const int d[N], int P[N][N]) ; 
 void order(const int i,const int j,const int P[N][N]) ;
 
 int main() {
 
-	int d[N+1] = {5,2,3,4,6,7,8};//7
+	// int d[N+1] = {5,2,3,4,6,7,8};//7
+	int d[N+1] = {7,4,2,8,6};//5
 	int P[N][N];
 
 	cout<<"d = ";
@@ -22,7 +24,7 @@ int main() {
 
 	
 	cout<<"Minimum Number of Multiplications = "<<res<<endl;
-	order(1,6,P);
+	order(1,N,P);
 	cout<<endl;
 	return 0;
 }
