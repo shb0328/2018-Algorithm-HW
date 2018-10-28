@@ -12,9 +12,16 @@ int main() {
 
 	int d[N+1] = {5,2,3,4,6,7,8};//7
 	int P[N][N];
+
+	cout<<"d = ";
+	for (int i = 0; i < sizeof(d)/sizeof(d[0]); ++i)
+		cout<<d[i]<<" ";
+	cout<<endl<<endl;
+	
 	int res = minmult(N,d,P);
 	cout<<"Minimum Number of Multiplications = "<<res<<endl;
 	order(1,6,P);
+	cout<<endl;
 	return 0;
 }
 
@@ -32,7 +39,7 @@ int minmult(const int n, const int d[N], int P[N][N])
 	for(diagonal = 1; diagonal <= n-1; ++diagonal){
 		for(i = 0; i< n - diagonal; ++i){
 			j = i + diagonal;
-			
+
 			for(k = i; k <= j-1; ++k){
 				if(k == i){
 					P[i][j] = k+1; 
@@ -45,12 +52,10 @@ int minmult(const int n, const int d[N], int P[N][N])
 					}
 				}
 			}
-			
-			cout<<endl<<"M["<<i<<"]["<<j<<"] = "<<M[i][j]<<endl;
 		}
 	}
 
-	cout<<endl;
+	cout<<"M = "<<endl;
 	for(int i =0; i<n;++i){
 		for(int j =0; j<n; ++j)
 			cout<<M[i][j]<<" ";
