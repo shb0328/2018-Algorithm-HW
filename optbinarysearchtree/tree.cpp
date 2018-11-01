@@ -90,7 +90,9 @@ void optsearchtree(int n, const float p[N], float& minavg, int R[N+1][N+1])
 		for(i = 1; i <= n - diagonal; ++i) {
 			j = i + diagonal;
 			for(k = i; k <= j; ++k){
-				int tmp = A[i-1][k-1] + A[k][j] + sigma(i-1,j,p);
+				float tmp = A[i-1][k-1] + A[k][j] + sigma(i-1,j,p);
+				//
+				cout<<"di = " <<diagonal<<", i = "<<i<<", j = "<<j<<", tmp = "<<tmp<<endl;
 				if( k == i ) {
 					A[i-1][j] = tmp;
 					R[i-1][j] = k;
@@ -101,9 +103,8 @@ void optsearchtree(int n, const float p[N], float& minavg, int R[N+1][N+1])
 						R[i-1][j] = k;
 					}
 				}
-			}
-		}
-	}
+			}}}
+			
 	minavg = A[0][n];
 	cout<<"minavg = "<<minavg<<endl;
 }
