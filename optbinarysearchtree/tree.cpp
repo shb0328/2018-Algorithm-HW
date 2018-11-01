@@ -85,8 +85,10 @@ void optsearchtree(int n, const float p[N], float& minavg, int R[N+1][N+1])
 	for(diagonal = 1; diagonal <= n-1; ++diagonal){
 		for(i = 1; i <= n - diagonal; ++i) {
 			j = i + diagonal;
+			float sigmaValue = sigma(i-1,j-1,p);
+			
 			for(k = i; k <= j; ++k){
-				float tmp = A[i-1][k-1] + A[k][j] + sigma(i-1,j-1,p);
+				float tmp = A[i-1][k-1] + A[k][j] + sigmaValue;
 				
 				if( k == i ) {
 					A[i-1][j] = tmp;
