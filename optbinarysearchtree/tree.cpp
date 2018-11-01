@@ -86,7 +86,7 @@ void optsearchtree(int n, const float p[N], float& minavg, int R[N+1][N+1])
 		for(i = 1; i <= n - diagonal; ++i) {
 			j = i + diagonal;
 			float sigmaValue = sigma(i-1,j-1,p);
-			
+
 			for(k = i; k <= j; ++k){
 				float tmp = A[i-1][k-1] + A[k][j] + sigmaValue;
 				
@@ -96,34 +96,36 @@ void optsearchtree(int n, const float p[N], float& minavg, int R[N+1][N+1])
 				}else {
 					if(A[i-1][j] > tmp){
 						A[i-1][j] = tmp;
-						R[i-1][j] = k; }
+						R[i-1][j] = k; 
+					}
 				}
+			}
+		}
+	}
 
-			}}}
-			
 			//show A,R
-			cout<<"A = "<<endl;
-			for(int i =0; i<=n; ++i){
-				for(int j =0; j<=n; ++j)
-					cout<<A[i][j]<<" ";
-				cout<<endl;
-			}
-			cout<<endl<<"R = "<<endl;
-			for(int i =0; i<=n; ++i){
-				for(int j =0; j<=n; ++j)
-					cout<<R[i][j]<<" ";
-				cout<<endl;
-			}
-			cout<<endl;
+	cout<<"A = "<<endl;
+	for(int i =0; i<=n; ++i){
+		for(int j =0; j<=n; ++j)
+			cout<<A[i][j]<<" ";
+		cout<<endl;
+	}
+	cout<<endl<<"R = "<<endl;
+	for(int i =0; i<=n; ++i){
+		for(int j =0; j<=n; ++j)
+			cout<<R[i][j]<<" ";
+		cout<<endl;
+	}
+	cout<<endl;
 			//
-			minavg = A[0][n];
-		}
+	minavg = A[0][n];
+}
 
-		float sigma(int q, int r, const float* p)
-		{
-			float res = 0;
-			for(int i = q; i <= r; ++i){
-				res += p[i];
-			}
-			return res;
-		}
+float sigma(int q, int r, const float* p)
+{
+	float res = 0;
+	for(int i = q; i <= r; ++i){
+		res += p[i];
+	}
+	return res;
+}
