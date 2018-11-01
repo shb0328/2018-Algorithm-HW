@@ -3,8 +3,10 @@
 using std::endl;
 using std::cout;
 using std::string;
+using std::fixed;
 
-#define N 4
+// #define N 4
+#define N 5
 
 struct node
 {
@@ -15,34 +17,48 @@ struct node
 
 float sigma(int q, int r, const float* p);
 void optsearchtree(int n, const float p[N], float& minavg, int R[N+1][N+1]);
-node* tree(int i, int j, int R[N+1][N+1]);
+node* tree(int i, int j, const int R[N+1][N+1]);
 
-const string key[N] = {"Don","Isabelle","Ralph","Wally"};
+// const string keys[N] = {"Don","Isabelle","Ralph","Wally"};
+// const float p[] = {0.375,0.375,0.125,0.125};
+
+const string keys[N] = {"apple","banana","cherry","mango","strawberry"};
+const float p[] = {0.1,0.2,0.3,0.2,0.2};
 
 int main() {
-	float p[] = {0.375,0.375,0.125,0.125};
+	cout<<fixed;
+	cout.precision(2);
+
 	float minavg;
 	int R[N+1][N+1];
 	optsearchtree(N,p,minavg,R);
-	// node* root = tree(1,N,R);
+
+	node* root = tree(1,N,R);
+
+	cout<<root->key<<endl;
 
 	cout<<"Minimum Average = "<<minavg<<endl;
 	return 0;
 }
 
 
-node* tree(int i, int j, int R[N+1][N+1])
+node* tree(int i, int j, const int R[N+1][N+1])
 {
+	cout<<"tree("<<i-1<<", "<<j<<")"<<endl;
 	int k;
 	node * p;
+	cout<<"R["<<i-1<<"]["<<j<<"] = "<<R[i-1][j]<<endl;
 	k = R[i-1][j];
-	if(k == 0)
+	if(k <= 0){
+		cout<<"return null"<<endl;
 		return NULL;
+	}
 	else {
 		p = new node;
-		p -> key = key[k-1];
-		p -> left = tree(i-1,k-1,R);
-		p -> right = tree(k,j,R);
+		p -> key = keys[k-1];
+		cout<<"key = "<<p->key<<endl;
+		p -> left = tree(i,k-1,R);
+		p -> right = tree(k+1,j,R);
 		return p;
 	}
 }
@@ -90,7 +106,8 @@ void optsearchtree(int n, const float p[N], float& minavg, int R[N+1][N+1])
 		for(i = 1; i <= n - diagonal; ++i) {
 			j = i + diagonal;
 			for(k = i; k <= j; ++k){
-				float tmp = A[i-1][k-1] + A[k][j] + sigma(i-1,j,p);
+				cout<<"A["<<i-1<<"]["<<k-1<<"] = "<<A[i-1][k-1]<<", A["<<k<<"]["<<j<<"] = "<<A[k][j]<<", sigma" <<sigma(i-1,j-1,p)<<endl;
+				float tmp = A[i-1][k-1] + A[k][j] + sigma(i-1,j-1,p);
 				//
 				cout<<"di = " <<diagonal<<", i = "<<i<<", j = "<<j<<", tmp = "<<tmp<<endl;
 				if( k == i ) {
@@ -103,16 +120,45 @@ void optsearchtree(int n, const float p[N], float& minavg, int R[N+1][N+1])
 						R[i-1][j] = k;
 					}
 				}
-			}}}
-			
-	minavg = A[0][n];
-	cout<<"minavg = "<<minavg<<endl;
-}
 
-float sigma(int q, int r, const float* p)
-{
-	float res = 0;
-	for(int i = q; i <= r; ++i)
-		res += p[i];
-	return res;
-}
+//test
+				for(int i =0; i<=n; ++i){
+					for(int j =0; j<=n; ++j)
+						cout<<R[i][j]<<" ";
+					cout<<endl;
+				}
+				cout<<endl;
+				for(int i =0; i<=n; ++i){
+					for(int j =0; j<=n; ++j)
+						cout<<A[i][j]<<" ";
+					cout<<endl;
+				}
+				cout<<endl;
+	//
+			}}}
+			//test
+			for(int i =0; i<=n; ++i){
+				for(int j =0; j<=n; ++j)
+					cout<<R[i][j]<<" ";
+				cout<<endl;
+			}
+			cout<<endl;
+			for(int i =0; i<=n; ++i){
+				for(int j =0; j<=n; ++j)
+					cout<<A[i][j]<<" ";
+				cout<<endl;
+			}
+			cout<<endl;
+	//
+			minavg = A[0][n];
+		}
+
+		float sigma(int q, int r, const float* p)
+		{
+			float res = 0;
+			for(int i = q; i <= r; ++i){
+				res += p[i];
+				cout<<"res in sigma = "<<res<<endl;
+			}
+			return res;
+		}
