@@ -14,7 +14,7 @@ class Graph {
 
 private:
 	int n;
-	int m;
+	int m=0;
 	int W[N][N] = {
 		{0,1,3,INF,INF},
 		{1,0,3,6,INF},
@@ -30,13 +30,24 @@ private:
 		int weight;
 	};
 
-	edge E[];
-
 	void quickSort() {
-
+		
 	}
 
 public:
+	edge E[];
+
+	Graph(){
+		this->n = N;
+		for(int i = 0; i < N; ++i){
+			for(int j = i+1; j < N; ++j){
+				if(W[i][j] > 0 && W[i][j] < INF)
+					E[m++] = {i+1,j+1,W[i][j]};
+			}
+		}
+	}
+
+	int get_m(){	return m;}
 
 	void kruskal(int n, int m, edge E, edge& F) {
 		index i, j;
@@ -94,6 +105,9 @@ public:
 
 
 int main() {
-
+	Graph* myGraph = new Graph();
+	cout<<myGraph->get_m()<<endl;
+	for(int i =0; i < myGraph->get_m(); ++i)
+		cout<<myGraph->E[i].v1<<","<<myGraph->E[i].v2<<","<<myGraph->E[i].weight<<endl;
 	return 0;
 }
