@@ -1,5 +1,6 @@
-﻿test.exe
+test.exe
 test.cpp
 *.exe
 *.jpg
 *.zip
+*.PNG
