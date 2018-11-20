@@ -30,8 +30,42 @@ private:
 		int weight;
 	};
 
-	void quickSort() {
-		
+	void quickSort(index low, index high) {
+		index pivotpoint;
+		//
+		//
+		show();
+		cout<<"[quickSort start]"<<endl;
+		//
+		//
+		if(high > low) {
+			partition(low,high,pivotpoint);
+			quickSort(low,pivotpoint-1);
+			quickSort(pivotpoint+1,high);
+		}
+	}
+
+	void partition (index low, index high, index& pivotpoint) {
+		index i,j;
+		int pivotitem;
+
+		pivotitem = E[low].weight;
+		j = low;
+		for(i = low+1; i<=high; ++i){
+			if(E[i].weight <= pivotitem) {
+				j++;
+				edge temp;
+				temp = E[i];
+				E[i] = E[j];
+				E[j] = temp;
+			}
+			pivotpoint = j;
+			edge temp;
+			temp = E[low];
+			E[low] = E[pivotpoint];
+			E[pivotpoint] = temp;
+		}
+
 	}
 
 public:
@@ -45,9 +79,17 @@ public:
 					E[m++] = {i+1,j+1,W[i][j]};
 			}
 		}
+
+		quickSort(0,m-1);
 	}
 
 	int get_m(){	return m;}
+
+	void show() {
+		cout<<"[Edges]"<<endl;
+		for(int i =0; i < m; ++i)
+		cout<<E[i].v1<<"-"<<E[i].v2<<" : "<<E[i].weight<<endl;
+	}
 
 	void kruskal(int n, int m, edge E, edge& F) {
 		index i, j;
@@ -107,7 +149,6 @@ public:
 int main() {
 	Graph* myGraph = new Graph();
 	cout<<myGraph->get_m()<<endl;
-	for(int i =0; i < myGraph->get_m(); ++i)
-		cout<<myGraph->E[i].v1<<","<<myGraph->E[i].v2<<","<<myGraph->E[i].weight<<endl;
+	myGraph->show();
 	return 0;
 }
