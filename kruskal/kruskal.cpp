@@ -92,7 +92,7 @@ private:
 	};
 
 	edge* F; //result of kruskal
-	edge E[]; //edges of graph
+	edge* E; //edges of graph
 
 	using keytype = edge;
 	void mergeSort(int n, keytype S[]){
@@ -166,12 +166,11 @@ public:
 
 		mergeSort(m,E);
 		show(E); cout<<endl;
-		show(E); cout<<endl;
 
 		F = new edge[n-1];
-		// for(int i =0; i<n-1; ++i)
-		// 	F[i] = {0,0,0};
-		//show(F); cout<<endl;
+		for(int i =0; i<n-1; ++i)
+			F[i] = {0,0,0};
+		show(F); cout<<endl;
 		show(E); cout<<endl; //**
 
 		DisjointSet DS = DisjointSet(n);
