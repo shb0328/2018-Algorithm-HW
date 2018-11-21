@@ -158,28 +158,37 @@ public:
 	int get_m(){	return m;}
 
 	void kruskal(){
+		cout<<"kruskal start"<<endl<<endl;
 		//int n, int m, edge E, edge& F) {
 		index k=0,l=0;
 		set_pointer p,q;
 		edge e;
 
 		mergeSort(m,E);
-		show(E);
+		show(E); cout<<endl;
+		show(E); cout<<endl;
 
 		F = new edge[n-1];
-		cout<<"?";
-		show(F);
+		// for(int i =0; i<n-1; ++i)
+		// 	F[i] = {0,0,0};
+		//show(F); cout<<endl;
+		show(E); cout<<endl; //**
 
 		DisjointSet DS = DisjointSet(n);
 		DS.initial(n);
+		DS.show(); cout<<endl;
 
-		DS.show();
 		while(k<n-1){
+			cout<<endl<<"while :"<<k<<endl<<endl;
+			show(E);
+			
 			p = DS.find(E[l].v1);
 			q = DS.find(E[l].v2);
+			cout<<"p,q :"<<p<<","<<q<<endl<<endl;
 			if(!DS.equal(q,p)){
 				DS.merge(p,q);
 				F[k++] = E[l];
+				show(F);
 			}
 			l++;
 		}
