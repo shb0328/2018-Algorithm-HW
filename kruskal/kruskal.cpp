@@ -56,7 +56,7 @@ public:
 	set_pointer find(index i) {
 		index j;
 		j = i;
-		while(U[j].parent != j) j = U[j].parent;
+		while(U[j-1].parent != j) j = U[j-1].parent;
 		return j;
 	}
 
@@ -191,8 +191,6 @@ public:
 			}
 			l++;
 		}
-		cout<<"??";
-		show(F);
 	}
 };
 
