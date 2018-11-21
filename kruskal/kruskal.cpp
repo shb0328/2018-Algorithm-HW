@@ -10,6 +10,67 @@ using index = int;
 using set_pointer = index;
 
 
+class DisjointSet {
+
+private:
+	int n;
+	struct node
+	{
+		index parent;
+		int depth;
+	};
+
+	node *U;
+
+	void makeset(index i) {
+		U[i-1].parent = i;
+		U[i-1].depth = 0;
+	}
+
+public:
+	DisjointSet(int n){
+		this->n = n;
+		U = new node[n];
+	}
+	~DisjointSet(){
+		delete[] U;
+	}
+
+	void initial(int n) {
+		index i;
+		for (i = 1; i<=n; ++i) makeset(i);
+	}
+
+	bool equal (set_pointer p, set_pointer q){
+		if(p == q) return true;
+		else return false;
+	}
+
+	void merge(set_pointer p, set_pointer q){
+		if(U[p].depth == U[q].depth) {
+			U[p].depth += 1;
+			U[q].parent = p;
+		}
+	}
+
+	set_pointer find(index i) {
+		index j;
+		j = i;
+		while(U[j].parent != j) j = U[j].parent;
+		return j;
+	}
+
+	void show() {
+		cout<<"U = "<<endl;
+		for(int i = 0; i<n; ++i){
+		cout<<"["<<i<<"]"
+		<<"parent : "<<U[i].parent<<endl
+		<<"depth : "<<U[i].depth<<endl;
+		}
+	}
+
+};
+
 class Graph {
 
 private:
@@ -29,6 +90,9 @@ private:
 		index v2;
 		int weight;
 	};
+
+	edge* F; //result of kruskal
+	edge E[]; //edges of graph
 
 	using keytype = edge;
 	void mergeSort(int n, keytype S[]){
@@ -66,9 +130,8 @@ private:
 		}
 	}
 
-public:
-	edge E[];
 
+public:
 	void show(const edge* ep) {
 		for(int i =0; i < m; ++i){
 			cout<<ep[i].v1<<"-"
@@ -86,69 +149,48 @@ public:
 			}
 		}
 
-		mergeSort(m,E);
+		//mergeSort(m,E);
+	}
+	~Graph(){
+		delete[] F;
 	}
 
 	int get_m(){	return m;}
 
-	void kruskal(int n, int m, edge E, edge& F) {
-		index i, j;
+	void kruskal(){
+		//int n, int m, edge E, edge& F) {
+		index k=0,l=0;
 		set_pointer p,q;
 		edge e;
 
+		mergeSort(m,E);
+		show(E);
 
+		F = new edge[n-1];
+		cout<<"?";
+		show(F);
+
+		DisjointSet DS = DisjointSet(n);
+		DS.initial(n);
+
+		DS.show();
+		while(k<n-1){
+			p = DS.find(E[l].v1);
+			q = DS.find(E[l].v2);
+			if(!DS.equal(q,p)){
+				DS.merge(p,q);
+				F[k++] = E[l];
+			}
+			l++;
+		}
+		cout<<"??";
+		show(F);
 	}
-};
-
-class DisjointSet {
-
-private:
-
-	struct node
-	{
-		index parent;
-		int depth;
-	};
-
-	node U[N];
-
-	void makeset(index i) {
-		U[i].parent = i;
-		U[i].depth = 0;
-	}
-
-public:
-
-	void initial(int n) {
-		index i;
-		for (i = 1; i<=n; ++i) makeset(i);
-	}
-
-bool equal (set_pointer p, set_pointer q){
-	if(p == q) return true;
-	else return false;
-}
-
-void merge(set_pointer p, set_pointer q){
-	if(U[p].depth == U[q].depth) {
-		U[p].depth += 1;
-		U[q].parent = p;
-	}
-}
-
-set_pointer find(index i) {
-	index j;
-	j = i;
-	while(U[j].parent != j) j = U[j].parent;
-	return j;
-}
-
 };
 
 
 int main() {
 	Graph* myGraph = new Graph();
-	cout<<myGraph->get_m()<<endl;
-	myGraph->show(myGraph->E);
+	myGraph->kruskal();
 	return 0;
 }
