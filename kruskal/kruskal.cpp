@@ -34,6 +34,7 @@ public:
 	}
 	~DisjointSet(){
 		delete[] U;
+		cout<<endl<<"[DisjointSet distructor]"<<endl;
 	}
 
 	void initial(int n) {
@@ -51,6 +52,10 @@ public:
 			U[p-1].depth += 1;
 			U[q-1].parent = p;
 		}
+		else if(U[p-1].depth < U[q-1].depth)
+			U[p-1].parent = q;
+		else
+			U[q-1].parent = p;
 	}
 
 	set_pointer find(index i) {
@@ -141,18 +146,43 @@ public:
 	}
 
 	Graph(){
+		cout<<endl<<"[Graph constructor]"<<endl;
+
 		this->n = N;
-		for(int i = 0; i < N; ++i){
-			for(int j = i+1; j < N; ++j){
-				if(W[i][j] > 0 && W[i][j] < INF)
-					E[m++] = {i+1,j+1,W[i][j]};
+		for(int i = 0; i < n; ++i){
+			cout<<"i for : "<<i<<endl;
+			for(int j = i+1; j < n; ++j){
+				cout<<"j for : "<<j<<endl;
+				if(W[i][j] > 0 && W[i][j] < INF){
+					cout<<"if : "<<W[i][j]<<", m="<<m<<", n="<<n<<endl;
+					m++;
+				}
+			}
+		}
+
+		cout<<"finish, m = "<<m<<endl;
+		E = new edge[m];
+
+		index k =0;
+		for(int i = 0; i < n; ++i){
+			cout<<"i for : "<<i<<endl;
+			for(int j = i+1; j < n; ++j){
+				cout<<"j for : "<<j<<endl;
+				if(W[i][j] > 0 && W[i][j] < INF){
+					cout<<"if : "<<W[i][j]<<", m="<<m<<", n="<<n<<endl;
+					E[k++] = {i+1,j+1,W[i][j]};
+					show(m,E); cout<<endl;
+				}
 			}
 		}
 
 		//mergeSort(m,E);
 	}
 	~Graph(){
+		cout<<endl<<"[Graph distructor start]"<<endl;
+		delete[] E;
 		delete[] F;
+		cout<<endl<<"[Graph distructor]"<<endl;
 	}
 
 	int get_m(){	return m;}
@@ -190,6 +220,8 @@ public:
 			l++;
 			DS.show();
 		}
+
+		cout<<endl<<"[kruskal finish]"<<endl;
 	}
 };
 
@@ -197,5 +229,7 @@ public:
 int main() {
 	Graph* myGraph = new Graph();
 	myGraph->kruskal();
+	cout<<endl<<"[main finish]"<<endl;
+
 	return 0;
 }
