@@ -9,7 +9,6 @@ using std::cout;
 using index = int;
 using set_pointer = index;
 
-
 class DisjointSet {
 
 private:
@@ -47,10 +46,14 @@ public:
 	}
 
 	void merge(set_pointer p, set_pointer q){
-		if(U[p].depth == U[q].depth) {
-			U[p].depth += 1;
-			U[q].parent = p;
+		if(U[p-1].depth == U[q-1].depth) {
+			U[p-1].depth += 1;
+			U[q-1].parent = p;
 		}
+		else if(U[p-1].depth < U[q-1].depth)
+			U[p-1].parent = q;
+		else
+			U[q-1].parent = p;
 	}
 
 	set_pointer find(index i) {
@@ -71,18 +74,13 @@ public:
 
 };
 
+
 class Graph {
 
 private:
-	int n; //number of vertex
+	int n; //number of vertices
 	int m=0; //number of edges = size of E
-	int W[N][N] = {
-		{0,1,3,INF,INF},
-		{1,0,3,6,INF},
-		{3,3,0,4,2},
-		{INF,6,4,0,5},
-		{INF,INF,2,5,0}
-	};
+	int (*W)[N];
 
 	struct edge
 	{
@@ -91,8 +89,8 @@ private:
 		int weight;
 	};
 
-	edge* F; //result of kruskal
-	edge* E; //edges of graph
+	edge* F; //edges of Graph (MST)
+	edge* E; //edges of Graph (Original)
 
 	using keytype = edge;
 	void mergeSort(int n, keytype S[]){
@@ -132,71 +130,86 @@ private:
 
 
 public:
-	void show(const edge* ep) {
-		for(int i =0; i < m; ++i){
+	void show(const int n,const edge* ep) {
+		for(int i =0; i < n; ++i){
 			cout<<ep[i].v1<<"-"
 			<<ep[i].v2<<":"
 			<<ep[i].weight<<endl;
 		}
 	}
 
-	Graph(){
+	Graph(int W[N][N]){
 		this->n = N;
-		for(int i = 0; i < N; ++i){
-			for(int j = i+1; j < N; ++j){
-				if(W[i][j] > 0 && W[i][j] < INF)
-					E[m++] = {i+1,j+1,W[i][j]};
-			}
+		this->W = W;
+		for(int i = 0; i < n; ++i){
+			for(int j = i+1; j < n; ++j)
+				if(W[i][j] > 0 && W[i][j] < INF) m++;
 		}
 
-		//mergeSort(m,E);
+		E = new edge[m]; index k =0;
+
+		for(int i = 0; i < n; ++i){
+			for(int j = i+1; j < n; ++j)
+				if(W[i][j] > 0 && W[i][j] < INF) E[k++] = {i+1,j+1,W[i][j]};
+		}
 	}
+
 	~Graph(){
+		delete[] E;
 		delete[] F;
 	}
 
-	int get_m(){	return m;}
-
 	void kruskal(){
-		cout<<"kruskal start"<<endl<<endl;
-		//int n, int m, edge E, edge& F) {
+		cout<<"**********kruskal start**********"<<endl<<endl;
+
 		index k=0,l=0;
 		set_pointer p,q;
 		edge e;
 
+		//sort E
 		mergeSort(m,E);
-		show(E); cout<<endl;
+		cout<<"E = "<<endl; show(m,E); cout<<endl;
 
+		//init F
 		F = new edge[n-1];
 		for(int i =0; i<n-1; ++i)
 			F[i] = {0,0,0};
-		show(F); cout<<endl;
-		show(E); cout<<endl; //**
+		cout<<"F = "<<endl; show(n-1,F); cout<<endl;
 
+		//create disjoint set U
 		DisjointSet DS = DisjointSet(n);
 		DS.initial(n);
 		DS.show(); cout<<endl;
 
+		//selection
 		while(k<n-1){
-			cout<<endl<<"while :"<<k<<endl<<endl;
-			show(E);
-			
 			p = DS.find(E[l].v1);
 			q = DS.find(E[l].v2);
-			cout<<"p,q :"<<p<<","<<q<<endl<<endl;
 			if(!DS.equal(q,p)){
 				DS.merge(p,q);
 				F[k++] = E[l];
-				show(F);
-			}
-			l++;
+			}l++;
 		}
+
+		cout<<"F = "<<endl; show(n-1,F); cout<<endl;
+		cout<<"**********kruskal finish**********"<<endl;
 	}
 };
 
 
+
+
+
 int main() {
-	Graph* myGraph = new Graph();
+	int W[N][N] = {
+		{0,1,3,INF,INF},
+		{1,0,3,6,INF},
+		{3,3,0,4,2},
+		{INF,6,4,0,5},
+		{INF,INF,2,5,0}
+	};
+
+	Graph* myGraph = new Graph(W);
 	myGraph->kruskal();
 	return 0;
 }
