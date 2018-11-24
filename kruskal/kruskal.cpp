@@ -3,7 +3,10 @@
 using std::endl;
 using std::cout;
 
-#define N 5
+//ex1
+// #define N 5
+//ex2
+#define N 6
 #define INF 10000
 
 using index = int;
@@ -66,7 +69,7 @@ public:
 	void show() {
 		cout<<"U = "<<endl;
 		for(int i = 0; i<n; ++i){
-		cout<<"["<<i<<"]"
+		cout<<"["<<i+1<<"]"
 		<<"parent : "<<U[i].parent<<endl
 		<<"depth : "<<U[i].depth<<endl;
 		}
@@ -181,6 +184,8 @@ public:
 		DS.initial(n);
 		DS.show(); cout<<endl;
 
+		cout<<endl<<"..."<<endl<<endl<<endl;
+
 		//selection
 		while(k<n-1){
 			p = DS.find(E[l].v1);
@@ -192,6 +197,7 @@ public:
 		}
 
 		cout<<"F = "<<endl; show(n-1,F); cout<<endl;
+		DS.show(); cout<<endl;
 		cout<<"**********kruskal finish**********"<<endl;
 	}
 };
@@ -201,12 +207,23 @@ public:
 
 
 int main() {
+	//ex1
+	// int W[N][N] = {
+	// 	{0,1,3,INF,INF},
+	// 	{1,0,3,6,INF},
+	// 	{3,3,0,4,2},
+	// 	{INF,6,4,0,5},
+	// 	{INF,INF,2,5,0}
+	// };
+
+	//ex2
 	int W[N][N] = {
-		{0,1,3,INF,INF},
-		{1,0,3,6,INF},
-		{3,3,0,4,2},
-		{INF,6,4,0,5},
-		{INF,INF,2,5,0}
+		{0,3,1,INF,INF,INF},
+		{3,0,1,INF,INF,INF},
+		{1,1,0,5,5,2},
+		{INF,INF,5,0,INF,2},
+		{INF,INF,5,INF,0,8},
+		{INF,INF,2,2,8,0}
 	};
 
 	Graph* myGraph = new Graph(W);
