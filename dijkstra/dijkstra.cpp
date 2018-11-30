@@ -1,7 +1,8 @@
 #include <iostream>
 #include <array>
 
-#define N 5
+// #define N 5 //ex1
+#define N 6 //ex2
 #define INF 10000
 
 using std::cout;
@@ -75,12 +76,23 @@ void dijkstra(int n, const graph W, set_of_edges& F){
 }
 
 int main() {
+	//ex1
+	// graph W = {
+	// 	{0,7,4,6,1},
+	// 	{INF,0,INF,INF,INF},
+	// 	{INF,2,0,5,INF},
+	// 	{INF,3,INF,0,INF},
+	// 	{INF,INF,INF,1,0}
+	// };
+
+	// ex2
 	graph W = {
-		{0,7,4,6,1},
-		{INF,0,INF,INF,INF},
-		{INF,2,0,5,INF},
-		{INF,3,INF,0,INF},
-		{INF,INF,INF,1,0}
+		{0,3,2,INF,INF,8},
+		{INF,0,INF,1,INF,INF},
+		{INF,INF,0,INF,2,INF},
+		{INF,INF,5,0,INF,1},
+		{INF,7,INF,INF,0,INF},
+		{INF,INF,INF,INF,1,0}
 	};
 
 	cout<<"W = "<<endl;
