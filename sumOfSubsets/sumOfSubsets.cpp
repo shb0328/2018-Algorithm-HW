@@ -1,18 +1,27 @@
 #include <iostream>
 #include <string>
 
-#define N 4
-
 using std::cout;
 using std::endl;
 using std::string;
 
-using index = int;
-int W = 13;
-const int w[N] = {3,4,5,6};
+
+// ex1
+// #define N 4
+// const int W = 13;
+// const int w[N] = {3,4,5,6};
+
+//ex2
+#define N 5
+const int W = 23;
+const int w[N] = {5,6,8,10,12};
+
 int total;
 string include[N];
 int weight;
+
+
+using index = int;
 
 bool promising (index i, int weight, int total) {
 	return ((weight + total >= W) && (weight == W || weight + w[i] <= W));
