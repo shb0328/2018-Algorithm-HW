@@ -10,13 +10,25 @@ using color_of_nodes = int;
 
 
 //ex1
-#define N 4 //nodes
+// #define N 4 //nodes
+// const graph W[N][N] = //adjacency matrix
+// {
+// 	{0,1,1,1},
+// 	{1,0,1,0},
+// 	{1,1,0,1},
+// 	{1,0,1,0}
+// };
+// const colorNum m = 3; //color is 1,2,3
+
+//ex2
+#define N 5 //nodes
 const graph W[N][N] = //adjacency matrix
 {
-	{0,1,1,1},
-	{1,0,1,0},
-	{1,1,0,1},
-	{1,0,1,0}
+	{0,1,0,0,0},
+	{1,0,1,1,0},
+	{0,1,0,1,0},
+	{0,1,1,0,1},
+	{0,0,0,1,0}
 };
 const colorNum m = 3; //color is 1,2,3
 
