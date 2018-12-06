@@ -2,6 +2,7 @@
 
 using std::cout;
 using std::endl;
+
 #define N 4
 int W[N][N] = {
 	{0,1,0,1},
@@ -48,12 +49,6 @@ void hamiltonian(index i,int vindex[N]) {
 
 int main() {
 	int vindex[N] = {1,};
-	for(int i = 0; i<N; ++i)
-		cout<<vindex[i]<<" ";
-	cout<<endl;
-
 	hamiltonian(0,vindex);
-	for(int i = 0; i<N; ++i)
-		cout<<vindex[i]<<" ";
 	return 0;
 }
